@@ -3,6 +3,7 @@ package hellojpa;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Member {
 
     @Id @GeneratedValue
@@ -12,9 +13,26 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "TEAM_ID")
-    private Long teamId;
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "Member =" +
+                "id=" + id +
+                ", username='" + username;
+    }
 }
