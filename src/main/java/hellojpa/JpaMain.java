@@ -17,23 +17,30 @@ public class JpaMain {
         tx.begin();
 
         try{
+          Member sane = new Member();
+          sane.setUsername("사네");
 
-          Team barsa = new Team();
-          barsa.setName("바르셀로나");
+          Member kimihi = new Member();
+          kimihi.setUsername("키미히");
+
+          Team munhen = em.find(Team.class ,3L);
+          sane.setTeam(munhen);
+          kimihi.setTeam(munhen);
 
 
-          Member messi = new Member();
-          messi.setUsername("메시");
+          em.persist(sane);
+          em.persist(kimihi);
 
-          Member pique = new Member();
-          pique.setUsername("피케");
+          em.persist(munhen);
+          em.flush();
+          em.clear();
 
-          barsa.getMembers().add(messi);
-          barsa.getMembers().add(pique);
+         List<Member> member = munhen.getMembers();
+         for (Member  m : member){
+           System.out.println("m = "+m);
+         }
 
-          em.persist(barsa);
-          em.persist(messi);
-          em.persist(pique);
+
           tx.commit();
 
 
