@@ -5,50 +5,36 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
-      EntityManagerFactory emf =
-              Persistence.createEntityManagerFactory("hello");
+        EntityManagerFactory emf =
+                Persistence.createEntityManagerFactory("hello");
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        try{
-          Member sane = new Member();
-          sane.setUsername("사네");
+        try {
+            Member member = new Member();
+            member.setUsername("user01");
+            member.setCreateBy("kim");
+            member.setCreateDate(LocalDateTime.now());
 
-          Member kimihi = new Member();
-          kimihi.setUsername("키미히");
+            em.persist(member);
+            em.flush();
+            em.clear();
 
-          Team munhen = em.find(Team.class ,3L);
-          sane.setTeam(munhen);
-          kimihi.setTeam(munhen);
-
-
-          em.persist(sane);
-          em.persist(kimihi);
-
-          em.persist(munhen);
-          em.flush();
-          em.clear();
-
-         List<Member> member = munhen.getMembers();
-         for (Member  m : member){
-           System.out.println("m = "+m);
-         }
+            tx.commit();
 
 
-          tx.commit();
-
-
-        }catch (Exception e){
-          tx.rollback();
-        }finally {
-          em.close();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
         }
-      emf.close();
+        emf.close();
     }
 }
