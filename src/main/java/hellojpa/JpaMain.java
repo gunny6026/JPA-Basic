@@ -19,12 +19,11 @@ public class JpaMain {
 
         try {
 
-          Parent findParent = em.find(Parent.class , 13L);
+            Member member = new Member();
+            member.setUsername("박건희");
+            member.setHomeAddress(new Address("부산", "111","수영구 대성래미안"));
 
-           em.remove(findParent);
-
-
-
+            em.persist(member);
             tx.commit();
 
 
