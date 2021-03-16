@@ -39,4 +39,21 @@ public class Team extends BaseEntity {
     public void setMembers(List<Member> members) {
         this.members = members;
     }
+
+    public Team(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Team(String name) {
+        this.name = name;
+    }
+
+    public Team(Long id, String name, List<Member> members) {
+        this.id = id;
+        this.name = name;
+        this.members = members;
+    }
+
+    public Team(){}
 }

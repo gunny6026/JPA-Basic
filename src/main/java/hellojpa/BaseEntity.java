@@ -42,4 +42,13 @@ public abstract class BaseEntity {
     public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
+
+    public BaseEntity(){}
+
+    public BaseEntity(String createBy, LocalDateTime createDate, String lastModifiedBy, LocalDateTime lastModifiedDate) {
+        this.createBy = createBy;
+        this.createDate = createDate;
+        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedDate = lastModifiedDate;
+    }
 }

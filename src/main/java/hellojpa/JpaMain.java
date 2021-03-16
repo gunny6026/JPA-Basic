@@ -18,14 +18,16 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setUsername("user01");
-            member.setCreateBy("kim");
-            member.setCreateDate(LocalDateTime.now());
 
-            em.persist(member);
-            em.flush();
+            Member mm = em.find(Member.class, 5L);
+            mm.setUsername("케빈 데브라이너");
+
             em.clear();
+
+           Member mm2 = em.find(Member.class, 5L);
+
+
+            System.out.println("=====================================");
 
             tx.commit();
 
@@ -37,4 +39,16 @@ public class JpaMain {
         }
         emf.close();
     }
+
+//    private static void printMember(Member member) {
+//        System.out.println("member = " +member.getUsername());
+//    }
+//
+//    private static void printMemberAndTeam(Member member) {
+//        String username = member.getUsername();
+//        System.out.println("username = " + username);
+//
+//        Team team = member.getTeam();
+//        System.out.println("team = " + team.getName());
+//    }
 }
