@@ -18,13 +18,20 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Address address = new Address("서울", "1111" ,"청담 1동");
 
             Member member = new Member();
-            member.setUsername("박건희");
-            member.setHomeAddress(new Address("부산", "111","수영구 대성래미안"));
-
+            member.setUsername("박코니");
+            member.setHomeAddress(address);
             em.persist(member);
-            tx.commit();
+
+            Address newAddress = new Address("뉴욕", address.getZipcode(), address.getStreet());
+
+            member.setHomeAddress(newAddress);
+
+            // member2에 있는 주소만 바꾸고 싶다.
+
+           tx.commit();
 
 
         } catch (Exception e) {
