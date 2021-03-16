@@ -16,6 +16,12 @@ public class Team extends BaseEntity {
     // 읽기 전용이다다
    @OneToMany(mappedBy = "team") // team에 의해서 관리가 된다. , 연관관계의 주인이 아니다.
     private List<Member> members = new ArrayList<>();
+
+   public void addMember(Member member){
+       members.add(member);
+       member.setTeam(this);
+   }
+
     public Long getId() {
         return id;
     }

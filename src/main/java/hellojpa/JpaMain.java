@@ -19,15 +19,11 @@ public class JpaMain {
 
         try {
 
-            Member mm = em.find(Member.class, 5L);
-            mm.setUsername("케빈 데브라이너");
+          Parent findParent = em.find(Parent.class , 13L);
 
-            em.clear();
-
-           Member mm2 = em.find(Member.class, 5L);
+           em.remove(findParent);
 
 
-            System.out.println("=====================================");
 
             tx.commit();
 
