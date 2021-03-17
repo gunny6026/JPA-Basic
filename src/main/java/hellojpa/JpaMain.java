@@ -1,10 +1,10 @@
 package hellojpa;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,37 +19,13 @@ public class JpaMain {
 
         try {
 
-            Member mm = new Member();
-            mm.setUsername("거니");
-            mm.setHomeAddress(new Address("부산","1111","대성래미안"));
-            mm.getFavoriteFoods().add("치킨");
-            mm.getFavoriteFoods().add("삼겹살");
-            mm.getFavoriteFoods().add("피자");
-            mm.getAddressHistory().add(new AddressEntity("서울","1111","청담동"));
-            mm.getAddressHistory().add(new AddressEntity("부산 신평","1111","한신 아파트"));
+            //Criteria 사용 준비
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Member> query = cb.createQuery(Member.class);
 
-            em.persist(mm);
-
-            em.flush();
-            em.clear();
-
-            System.out.println("================= START ============");
-            Member findMember = em.find(Member.class, mm.getId());
-
-            // 부산 -> 서울
-//            findMember.getHomeAddress().setCity("서울");
-
-            Address a = findMember.getHomeAddress();
-            findMember.setHomeAddress(new Address("서울",a.getZipcode(),a.getStreet()));
-
-            //치킨 -> 한식
-            findMember.getFavoriteFoods().remove("치킨");
-            findMember.getFavoriteFoods().add("한식");
-
-//            findMember.getAddressHistory().remove(new Address("부산 신평","1111","한신 아파트"));
-//            findMember.getAddressHistory().add(new Address("신평","1111","한신 아파트"));
-
-
+           Root<Member> m = query.from(Member.class);
+            CriteriaQuery<Member> cq =query.select(m).where(cb.equal(m.get("username") , "kim"));
+            em.createQuery(cq).getResultList()
             tx.commit();
 
 

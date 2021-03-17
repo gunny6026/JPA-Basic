@@ -44,6 +44,9 @@ public class Member {
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
 
+    public Member(String username) {
+        this.username = username;
+    }
 
     public Long getId() {
         return id;
