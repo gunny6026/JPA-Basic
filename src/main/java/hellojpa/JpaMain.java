@@ -25,7 +25,7 @@ public class JpaMain {
 
            Root<Member> m = query.from(Member.class);
             CriteriaQuery<Member> cq =query.select(m).where(cb.equal(m.get("username") , "kim"));
-            em.createQuery(cq).getResultList()
+            em.createQuery(cq).getResultList();
             tx.commit();
 
 
